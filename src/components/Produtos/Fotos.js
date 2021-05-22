@@ -7,24 +7,21 @@ export default class Fotos extends React.Component {
 
 
     render(){
+
         return(
 
             <div>
-                        <h3>Lista de produtos</h3>
-                        {this.props.imagens.map((imagem) => {
-                            return (
-                            <div>
-                                <img src={imagem.imageUrl} />
-                                <p>
-                                {imagem.name} - R${imagem.value}
-                                </p>
-                                <button onClick={() => this.adicionarAoCarrinho(imagem)}>
-                                Adicionar ao carrinho
-                                </button>
-                            </div>
-                    );
-                })}
+               {this.props.imagens.map((imagem) => {
+            return (<div>
+              <img src={imagem.imageUrl}/>
+              <p>{imagem.name}</p>
+              <p>R${imagem.value},00</p>
+              <button onClick={() => this.props.adicionar(imagem)}>Adicionar Carrinho</button>
+              
+            </div>)
+          })}   
             </div>
         )
+
     }
 }

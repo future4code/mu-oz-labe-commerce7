@@ -88,6 +88,38 @@ export default class App extends React.Component {
        
       }
 
+
+      adicionar = (imagem) => {
+    const produtoNoCarrinho = this.state.carrinho.find((produtoNoCarrinho) => {
+      if (produtoNoCarrinho.id === imagem.id) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!produtoNoCarrinho) {
+      const novoProdutoNoCarrinho = {
+        ...imagem,
+        quantidade: 1
+      };
+
+      const copiaDoCarrinho = [...this.state.carrinho, novoProdutoNoCarrinho];
+
+      this.setState({ carrinho: copiaDoCarrinho });
+    } else {
+      const copiaDoCarrinho = this.state.carrinho.map((produtoNoCarrinho) => {
+        if (produtoNoCarrinho.id === imagem.id) {
+          return {
+            ...produtoNoCarrinho,
+            quantidade: produtoNoCarrinho.quantidade + 1
+          };
+        } else {
+          return produtoNoCarrinho;
+        }
+      });
+      this.setState({ carrinho: copiaDoCarrinho });
+    }
+  };
       
     
   render() {
@@ -100,12 +132,14 @@ export default class App extends React.Component {
         <Produtos>
           <Fotos
           imagens={this.state.imagens}
+          adicionar={this.adicionar}
           />
 
         </Produtos>
         <Compra>
             <Carrinho
             imagens={this.state.imagens}
+            remover={this.remover}
             />
             
         </Compra>

@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemDoCarrinho from './components/Carrinho/ItemDoCarrinho'
+import ItemDoCarrinho from './ItemDoCarrinho'
 
 export default class Carrinho extends React.Component {
  
@@ -14,14 +14,14 @@ export default class Carrinho extends React.Component {
      return valor
  }
 
-
+    
     render() {
-        return (<div>
+    return (<div>
       Carrinho:
       <div>
         {this.props.imagens.map((imagem) => {
           return<ItemDoCarrinho
-            imagem={this.props.imagem}
+            foto={imagem}
             remover={this.props.remover}
             
             />
@@ -34,5 +34,6 @@ export default class Carrinho extends React.Component {
     </div>
       
     )
-    }
-} 
+    
+  }
+}
