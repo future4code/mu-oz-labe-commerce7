@@ -69,20 +69,10 @@ export default class App extends React.Component {
     return(
       <Raiz>
         <Filtragem>
-          <Filtros
-     
-          />
+         
        </Filtragem>
         <Produtos>
-          <Ordenacao
-          
-          />
-          <Adicionar
-        
-          
-          />
-
-            </Produtos>
+        </Produtos>
             <Compra>
             <Carrinho
               remover={this.remover}
