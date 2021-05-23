@@ -2,8 +2,11 @@ import React from 'react'
 import styled from 'styled-components';
 
 const FiltroContainer = styled.div`
+  
   border: 1px solid black;
   padding: 8px;
+  text-align: center;
+  
 `;
 
 const InputContainer = styled.label`
@@ -11,6 +14,7 @@ const InputContainer = styled.label`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 8px;
+  margin-left: 35px;
 `
 
 export default class Filtros extends React.Component {
@@ -41,7 +45,7 @@ export default class Filtros extends React.Component {
             onChange={this.props.onChangeNameFilter}
           />
         </InputContainer>
-        <button onClick={this.props.onFilter()}>Filtrar</button>
+        {/* <button onClick={this.props.onFilter()}>Filtrar</button> */}
     </FiltroContainer>
   }
 }

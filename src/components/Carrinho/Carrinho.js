@@ -12,7 +12,7 @@ export default class Carrinho extends React.Component {
  }
     render() {
     return (<div>
-          <h3> produtos</h3>
+          <h3>Seu Carrinho</h3>
           {this.props.carrinho.map((product) => {
             return (
               <div>
