@@ -132,7 +132,7 @@ export default class App extends React.Component {
     this.setState({nameFiltro: event.target.value})
   }
 
-  onFilter = () => {
+  /* onFilter = () => {
     const listaFiltrada = this.state.imagens.map((filtro) => {
       if(filtro.value < minFilter){
         return {
@@ -143,7 +143,7 @@ export default class App extends React.Component {
       }
          
       
-    })
+    }) */
      
 
    
