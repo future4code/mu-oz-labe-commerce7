@@ -2,10 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Fotos from './components/Produtos/Fotos'
 import Carrinho from './components/Carrinho/Carrinho'
-import ItemDoCarrinho from './components/Carrinho/ItemDoCarrinho'
-
-
-
+import Filtros from './components/Filtros/Filtros'
 const Raiz = styled.div`
 display: grid;
 grid-template-columns: 1fr 3fr 1fr;
@@ -13,7 +10,6 @@ padding: 18px;
 gap: 6px;
 height: 100vh;
 `
-
 const Filtragem = styled.div`
 border: solid 1px black;
 height: 100vh;
@@ -24,13 +20,11 @@ border: solid 1px black;
  const Compra = styled.div`
  border: solid 1px black;
  `
-
-
 export default class App extends React.Component {
     state = {
       carrinho: [],
       minimoFiltro: 10,
-      maximoFiltro:10000,
+      maximoFiltro: 10000,
       nameFiltro: "produto",
         imagens: [
           {
@@ -82,33 +76,108 @@ export default class App extends React.Component {
           imageUrl: "http://d3ugyf2ht6aenh.cloudfront.net/stores/957/992/products/976667-mlb27426675225_052018-o-004f70d9f4470d2dbb15520786298354-640-0.jpg",
           quantidade: 7,
         },
-        
       ],
-      
-       
       }
+      adicionar = (imagem) => {
+    const produtoNoCarrinho = this.state.carrinho.find((produtoNoCarrinho) => {
+      if (produtoNoCarrinho.id === imagem.id) {
+        return true;
+      }
+      return false;
+    });
+    if (!produtoNoCarrinho) {
+      const novoProdutoNoCarrinho = {
+        ...imagem,
+        quantidade: 1
+      };
+      const copiaDoCarrinho = [...this.state.carrinho, novoProdutoNoCarrinho];
+      this.setState({ carrinho: copiaDoCarrinho });
+    } else {
+      const copiaDoCarrinho = this.state.carrinho.map((produtoNoCarrinho) => {
+        if (produtoNoCarrinho.id === imagem.id) {
+          return {
+            ...produtoNoCarrinho,
+            quantidade: produtoNoCarrinho.quantidade + 1
+          };
+        } else {
+          return produtoNoCarrinho;
+        }
+      });
+      this.setState({ carrinho: copiaDoCarrinho });
+    }
+  };
+  remover = (Id) => {
+    const removido = this.state.carrinho.map((imagem) => {
+      console.log("oi");
+      if(Id === imagem.Id) {
+        return {
+          ...imagem,
+          quantidade: imagem.quantidade -1
+        }
+      }
+      return imagem
+    }).filter((imagem) => imagem.quantidade > 0)
+    this.setState({carrinho: removido})
+  }
 
+  onChangeMinFilter = (event) => {
+    this.setState({minimoFiltro: event.target.value})
+  }
+
+  onChangeMaxFilter = (event) => {
+    this.setState({maximoFiltro: event.target.value})
+  }
+
+  onChangeNameFilter = (event) => {
+    this.setState({nameFiltro: event.target.value})
+  }
+
+  onFilter = () => {
+    const listaFiltrada = this.state.imagens.map((filtro) => {
+      if(filtro.value < minFilter){
+        return {
+        ...filtro, 
+
+
+        }
+      }
+         
       
-    
+    })
+     
+
+   
+ 
+
   render() {
-  
     return(
       <Raiz>
-        <Filtragem>
-        
-       </Filtragem>
+        <Filtros 
+         minimoFiltro={this.state.minimoFiltro}
+         maximoFiltro={this.state.maximoFiltro}
+         nameFiltro={this.state.nameFiltro}
+         onChangeMinFilter={this.onChangeMinFilter}            
+         onChangeMaxFilter={this.onChangeMaxFilter}            
+         onChangeNameFilter={this.onChangeNameFilter}
+
+        />
         <Produtos>
+
           <Fotos
           imagens={this.state.imagens}
+          adicionar={this.adicionar}
+          minFilter={this.state.minimoFiltro}
+          maxFilter={this.state.maximoFiltro}
+          nameFilter={this.state.nameFiltro}
           />
-
         </Produtos>
-        <Compra>
-            <Carrinho
+        
+        <Carrinho
             imagens={this.state.imagens}
-            />
-            
-        </Compra>
+            remover={this.remover}
+            carrinho={this.state.carrinho}
+        />
+        
       </Raiz>
             )
   }
